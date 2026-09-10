@@ -1,98 +1,86 @@
-# Robotics API - Full-Stack App
+# Robotics API & Frontend (Docker Exercise)
 
-A simple full-stack web application with a **FastAPI** backend and a **React** (Vite) frontend, containerized with **Docker** and **Docker Compose**.
-
----
+A simple full-stack app with a FastAPI backend and a React frontend.
 
 ## Project Structure
 
 ```text
 ├── backend/
-│   ├── .env                  # Environment variables (Student ID, Name)
-│   ├── .env.example          # Example configuration template
-│   ├── .dockerignore         # Docker ignore rules
-│   ├── Dockerfile            # Backend Docker instructions
-│   ├── main.py               # FastAPI application & routes
-│   └── requirements.txt      # Python dependencies
-│
+│   ├── .dockerignore
+│   ├── .env
+│   ├── .env.example
+│   ├── Dockerfile
+│   ├── main.py
+│   └── requirements.txt
 ├── frontend/
-│   ├── .dockerignore         # Docker ignore rules
-│   ├── Dockerfile            # Frontend Docker instructions
-│   ├── index.html            # Main HTML entry point
-│   ├── package.json          # Node dependencies & scripts
-│   ├── vite.config.js        # Vite configuration
+│   ├── .dockerignore
+│   ├── Dockerfile
+│   ├── index.html
+│   ├── package.json
+│   ├── vite.config.js
 │   └── src/
-│       ├── App.css           # Styling
-│       ├── App.jsx           # Dashboard component
-│       ├── index.css         # Base reset styles
-│       └── main.jsx          # React DOM render entry
-│
-├── .gitignore                # Git ignore rules
-├── docker-compose.yml        # Orchestrates backend & frontend containers
-└── README.md                 # Project documentation
+│       ├── App.css
+│       ├── App.jsx
+│       ├── index.css
+│       └── main.jsx
+├── .gitignore
+├── docker-compose.yml
+└── README.md
 ```
 
+## API Routes
+
+- `GET /` - Returns student ID, name, and status message:
+  ```json
+  {
+    "student_id": "IT12345678",
+    "name": "Makila Damsuka",
+    "message": "My robotics API is alive"
+  }
+  ```
+- `GET /health` - Health check:
+  ```json
+  {
+    "status": "ok"
+  }
+  ```
+
 ---
 
-## API Endpoints
+## How to Run with Docker
 
-| Method | Endpoint | Description | Example Response |
-| :--- | :--- | :--- | :--- |
-| `GET` | `/` | Returns student info and message | `{"student_id":"IT12345678","name":"Makila Damsuka","message":"My robotics API is alive"}` |
-| `GET` | `/health` | Health check endpoint | `{"status":"ok"}` |
-| `GET` | `/docs` | Swagger interactive API docs | *Interactive Swagger UI* |
+### Option 1: Docker Compose (Both frontend and backend together)
 
----
-
-## Getting Started with Docker Compose (Recommended)
-
-Docker Compose starts both the backend and frontend together with a single command.
-
-### 1. Start Both Services
-
-From the root directory of the project:
+Run from the project root:
 
 ```bash
 docker compose up --build
 ```
 
-- **Frontend**: [http://localhost:3000](http://localhost:3000)
-- **Backend**: [http://localhost:8000](http://localhost:8000)
-- **API Docs**: [http://localhost:8000/docs](http://localhost:8000/docs)
+- **Frontend:** http://localhost:3000
+- **Backend API:** http://localhost:8000
+- **Swagger Docs:** http://localhost:8000/docs
 
-*(To run in the background detached mode, add `-d`: `docker compose up --build -d`)*
-
-### 2. Stop the Services
-
+To stop both containers:
 ```bash
 docker compose down
 ```
 
 ---
 
-## Running Containers Individually
+### Option 2: Running Containers Individually
 
-If you prefer building and running containers separately without Docker Compose:
-
-### 1. Backend Container
-
+#### 1. Backend:
 ```bash
-# Navigate to backend and build image
 cd backend
 docker build -t backend .
-
-# Run container on port 8000
 docker run -p 8000:8000 backend
 ```
 
-### 2. Frontend Container
-
+#### 2. Frontend:
 ```bash
-# Navigate to frontend and build image
 cd frontend
 docker build -t frontend .
-
-# Run container (mapping port 3000 to avoid port collisions)
 docker run -p 3000:5173 frontend
 ```
 
@@ -100,8 +88,7 @@ docker run -p 3000:5173 frontend
 
 ## Running Locally (Without Docker)
 
-### 1. Backend
-
+### Backend:
 ```bash
 cd backend
 python3 -m venv .venv
@@ -110,23 +97,9 @@ pip install -r requirements.txt
 uvicorn main:app --reload --port 8000
 ```
 
-### 2. Frontend
-
+### Frontend:
 ```bash
 cd frontend
 npm install
 npm run dev
-```
-
----
-
-## Configuration
-
-You can update your student credentials anytime in `backend/.env`:
-
-```ini
-STUDENT_ID=IT12345678
-STUDENT_NAME=Makila Damsuka
-API_MESSAGE=My robotics API is alive
-PORT=8000
 ```
