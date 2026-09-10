@@ -33,7 +33,7 @@ A simple full-stack app with a FastAPI backend and a React frontend.
 - `GET /` - Returns student ID, name, and status message:
   ```json
   {
-    "student_id": "IT12345678",
+    "student_id": "245532U",
     "name": "Makila Damsuka",
     "message": "My robotics API is alive"
   }
@@ -81,7 +81,7 @@ docker run -p 8000:8000 backend
 ```bash
 cd frontend
 docker build -t frontend .
-docker run -p 3000:5173 frontend
+docker run -p 5173:5173 frontend
 ```
 
 ---

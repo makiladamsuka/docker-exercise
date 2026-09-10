@@ -23,7 +23,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-STUDENT_ID = os.getenv("STUDENT_ID", "IT12345678")
+STUDENT_ID = os.getenv("STUDENT_ID", "245532U")
 STUDENT_NAME = os.getenv("STUDENT_NAME", "Makila Damsuka")
 API_MESSAGE = os.getenv("API_MESSAGE", "My robotics API is alive")
 
